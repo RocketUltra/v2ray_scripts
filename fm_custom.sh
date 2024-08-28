@@ -14,12 +14,21 @@ set_timezone() {
 
 # 修改端口
 update_ports() {
+
+    # 检查 firewalld 是否已安装
+    if ! command -v firewall-cmd &>/dev/null; then
+        echo "正在为 CentOS 安装 firewalld..."
+        sudo yum install -y firewalld
+        sudo systemctl enable --now firewalld
+    else
+        echo "firewalld 已经安装。"
+    fi
+
     # 启动防火墙服务
     sudo systemctl start firewalld
 
     # 修改SSH端口为2222
     sudo sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config
-
     # 重启SSH服务
     sudo systemctl restart sshd
 
@@ -27,14 +36,14 @@ update_ports() {
     if sudo firewall-cmd --list-ports | grep -wq "22/tcp"; then
         sudo firewall-cmd --zone=public --remove-port=22/tcp --permanent
     fi
+    echo "防火墙已启动，并将ssh端口从22切换为2222。"
 
     # 开启v2ray端口
     sudo firewall-cmd --zone=public --add-port=31535/tcp --permanent
     sudo firewall-cmd --zone=public --add-port=31535/udp --permanent
 
     sudo firewall-cmd --reload
-    # echo "防火墙已启动，SSH端口已修改为2222，22端口已禁用，31535已启用。"
-    echo "防火墙已启动，31535已启用。"
+    echo "31535已启用。"
 }
 
 set_timezone
