@@ -2,7 +2,7 @@
 
 # 安装v2ray - 英国伦敦
 echo "1
-10
+3
 31535
 
 " | bash <(curl -s -L https://raw.githubusercontent.com/RocketUltra/v2ray_scripts/master/install.sh)

@@ -57,7 +57,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/RocketUltra/v2ray_scripts/ma
 ### 吉隆坡
 
 ```shell
-bash <(curl -s -L https://raw.githubusercontent.com/RocketUltra/v2ray_scripts/master/v2ray_malaysia_KualaLumpur.sh.sh)
+bash <(curl -s -L https://raw.githubusercontent.com/RocketUltra/v2ray_scripts/master/v2ray_my_KualaLumpur.sh.sh)
 ```
 
 ## 沙特

@@ -17,17 +17,16 @@ update_ports() {
     # 启动防火墙服务
     sudo systemctl start firewalld
 
-    # 关闭22端口可能会导致小火箭测速失败
-    # # 修改SSH端口为2222
-    # sudo sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config
+    # 修改SSH端口为2222
+    sudo sed -i 's/^#Port 22/Port 2222/' /etc/ssh/sshd_config
 
-    # # 重启SSH服务
-    # sudo systemctl restart sshd
+    # 重启SSH服务
+    sudo systemctl restart sshd
 
-    # # 检查22端口是否开启，如果开启，则禁用22端口
-    # if sudo firewall-cmd --list-ports | grep -wq "22/tcp"; then
-    #     sudo firewall-cmd --zone=public --remove-port=22/tcp --permanent
-    # fi
+    # 检查22端口是否开启，如果开启，则禁用22端口
+    if sudo firewall-cmd --list-ports | grep -wq "22/tcp"; then
+        sudo firewall-cmd --zone=public --remove-port=22/tcp --permanent
+    fi
 
     # 开启v2ray端口
     sudo firewall-cmd --zone=public --add-port=31535/tcp --permanent
